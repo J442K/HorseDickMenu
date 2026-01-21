@@ -3,6 +3,7 @@
 #include "core/filemgr/FileMgr.hpp"
 #include "core/frontend/Notifications.hpp"
 #include "core/hooking/Hooking.hpp"
+#include "core/input/Keyboard.hpp"
 #include "core/memory/ModuleMgr.hpp"
 #include "game/backend/PlayerDatabase.hpp"
 #include "core/renderer/Renderer.hpp"
@@ -106,8 +107,13 @@ BOOL WINAPI DllMain(HINSTANCE dllInstance, DWORD reason, void*)
 	if (reason == DLL_PROCESS_ATTACH)
 	{
 		g_DllInstance = dllInstance;
+		Input::Initialize();
 
 		g_MainThread = CreateThread(nullptr, 0, Main, nullptr, 0, &g_MainThreadId);
+	}
+	else if (reason == DLL_PROCESS_DETACH)
+	{
+		Input::Shutdown();
 	}
 	return true;
 }

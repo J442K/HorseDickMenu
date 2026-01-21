@@ -5,6 +5,7 @@
 #include "game/backend/SavedLocations.hpp"
 #include "game/backend/Self.hpp"
 #include "game/frontend/items/Items.hpp"
+#include "core/input/Keyboard.hpp"
 #include "util/Math.hpp"
 #include "util/Teleport.hpp"
 
@@ -135,7 +136,7 @@ namespace YimMenu::Submenus
 				{
 					if (ImGui::Selectable(l.name.data(), false, ImGuiSelectableFlags_AllowDoubleClick))
 					{
-						if (GetAsyncKeyState(VK_SHIFT) & 0x8000)
+						if (Input::IsKeyDown(VK_SHIFT))
 						{
 							locationToDelete = l;
 						}
