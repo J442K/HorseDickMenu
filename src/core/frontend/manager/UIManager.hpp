@@ -2,6 +2,8 @@
 #include "Category.hpp"
 #include "Submenu.hpp"
 
+#include <functional>
+
 namespace YimMenu
 {
 	class UIManager
@@ -37,6 +39,11 @@ namespace YimMenu
 			GetInstance().m_OptionsFont = font;
 		}
 
+		static void SetCloseAction(std::function<void()> action)
+		{
+			GetInstance().m_CloseAction = std::move(action);
+		}
+
 	private:
 		static inline UIManager& GetInstance()
 		{
@@ -53,6 +60,6 @@ namespace YimMenu
 		std::shared_ptr<Submenu> m_ActiveSubmenu;
 		std::vector<std::shared_ptr<Submenu>> m_Submenus;
 		ImFont* m_OptionsFont = nullptr;
+		std::function<void()> m_CloseAction{};
 	};
 }
-

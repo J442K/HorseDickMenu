@@ -1,6 +1,7 @@
 #include "Items.hpp"
 #include "core/commands/Commands.hpp"
 #include "core/commands/Command.hpp"
+#include "core/input/Keyboard.hpp"
 #include "game/backend/FiberPool.hpp"
 
 namespace YimMenu
@@ -33,7 +34,7 @@ namespace YimMenu
 		if (ImGui::IsItemHovered())
 		{
 			ImGui::SetTooltip(m_Command->GetDescription().data());
-			if (GetAsyncKeyState(VK_SHIFT) & 0x8000)
+			if (Input::IsKeyDown(VK_SHIFT))
 				ImGui::OpenPopup(std::format("{} Hotkey", m_Command->GetLabel()).data());
 		}
 

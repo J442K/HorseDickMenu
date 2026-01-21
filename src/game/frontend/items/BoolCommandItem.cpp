@@ -3,6 +3,7 @@
 #include "core/commands/Command.hpp"
 #include "core/commands/LoopedCommand.hpp"
 #include "core/frontend/widgets/toggle/imgui_toggle.hpp"
+#include "core/input/Keyboard.hpp"
 
 namespace YimMenu
 {
@@ -31,7 +32,7 @@ namespace YimMenu
 		if (ImGui::IsItemHovered())
 		{
 			ImGui::SetTooltip(m_Command->GetDescription().data());
-			if (GetAsyncKeyState(VK_OEM_3) & 0x8000)
+			if (Input::IsKeyDown(VK_OEM_3))
 				ImGui::OpenPopup(std::format("{} Hotkey", m_Command->GetLabel()).data());
 		}
 

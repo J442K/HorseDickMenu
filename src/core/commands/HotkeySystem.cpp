@@ -4,6 +4,7 @@
 #include "game/backend/ScriptMgr.hpp"
 #include "Commands.hpp"
 #include "LoopedCommand.hpp"
+#include "core/input/Keyboard.hpp"
 
 // TODO: serialization isn't stable
 
@@ -40,7 +41,7 @@ namespace YimMenu
 		// VK_OEM_CLEAR Is about the limit in terms of virtual key codes
 		for (int i = 0; i < VK_OEM_CLEAR; i++)
 		{
-			if ((GetKeyState(i) & 0x8000) && i != 1 && !IsKeyBlacklisted(i))
+			if (Input::IsKeyDown(i) && i != 1 && !IsKeyBlacklisted(i))
 			{
 				Hotkey = i;
 
@@ -99,7 +100,7 @@ namespace YimMenu
 	
 			for (auto modifier : link.m_Chain)
 			{
-				if (!(GetAsyncKeyState(modifier) & 0x8000))
+				if (!Input::IsKeyDown(modifier))
 				{
 					all_keys_pressed = false;
 				}
